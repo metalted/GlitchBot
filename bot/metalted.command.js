@@ -1,5 +1,6 @@
 import * as builder from './metalted.builder.js';
-import { Application } from './metalted.application.js';
+//import { Application } from './metalted.application.js';
+import { Hangman } from './apps/metalted.hangman.js';
 
 export const commands = {
     'error' : {
@@ -19,35 +20,7 @@ export const commands = {
         },
         app : (request, userInteractionSystem) =>
         {
-            const application = Application(request, userInteractionSystem);
-            application.parse = function(request, isComponent)
-            {
-                if(!isComponent)
-                {
-                    const msg = builder.MessageBuilder(request, application.applicationId);
-                    msg.AddPrimaryButton(0, "Go Mo!");
-                    msg.AddSecondaryButton(0, "Cancel");
-                    return msg.message;
-                }
-                else
-                {
-                    const customIdData = request.body.data.custom_id.split('|');
-                    const applicationId = customIdData[0];
-                    const component = customIdData[1];
-                  
-                    switch(component){
-                      case "go mo!":                        
-                        this.exit();
-                        return builder.ChatMessage(`Thank you for flying with Mo airlines!`);
-                        break;
-                      case "cancel":
-                        return builder.ChatMessage(`Mo is confused... Ok bye!`);
-                        this.exit();
-                        break;
-                    }
-                }                
-            }
-            return application;
+            return Hangman(request, userInteractionSystem);
         }
     },
     'User Command' : {
