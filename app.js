@@ -1,12 +1,13 @@
 import 'dotenv/config';
 import express from 'express';
 import * as manager from './bot/metalted.botmanager.js';
-import { VerifyDiscordRequest } from './bot/utils.js';
+import { DiscordRequest, VerifyDiscordRequest } from './bot/utils.js';
 
 // Create an express app
 const app = express();
 // Get port, or default to 3000
 const PORT = process.env.PORT || 3000;
+
 // Parse request body and verifies incoming requests using discord-interactions package
 app.use(express.json({ verify: VerifyDiscordRequest(process.env.PUBLIC_KEY) }));
 
